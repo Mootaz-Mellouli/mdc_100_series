@@ -88,6 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ElevatedButton(
                     child: Text('Next') ,
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(8.0),
+                    ),
                     onPressed: () {
                       _passwordController.clear();
                       Navigator.pop(context);
