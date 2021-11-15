@@ -25,6 +25,9 @@ class _LoginPageState extends State<LoginPage> {
   // TODO: Add text editing controllers (101)
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _unfocusedColor = Colors.grey[600];
+  final _usernameFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,19 +51,30 @@ class _LoginPageState extends State<LoginPage> {
             // TODO: Add TextField widgets (101)
              TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(
-                filled: true ,
+              decoration:  InputDecoration(
                 labelText: 'Username' ,
+                labelStyle: TextStyle(
+                    color: _usernameFocusNode.hasFocus
+                        ? Theme.of(context).colorScheme.secondary
+                        : _unfocusedColor),
+
               ),
+               focusNode: _usernameFocusNode,
             ),
             //spacer
             const SizedBox(height: 12.0,),
             //password
              TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'password',
+                labelStyle: TextStyle(
+                    color: _passwordFocusNode.hasFocus
+                        ? Theme.of(context).colorScheme.secondary
+                        : _unfocusedColor
+                ),
               ),
+               focusNode: _passwordFocusNode,
               obscureText: true,
             ),
             // TODO: Add button bar (101)
@@ -86,6 +100,21 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  @override
+  void initState() {
+    super.initState();
+    _usernameFocusNode.addListener(() {
+      setState(() {
+        //Redraw so that the username label reflects the focus state
+      });
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        //Redraw so that the password label reflects the focus state
+      });
+    });
+  }
 }
+
 
 // TODO: Add AccentColorOverride (103)
